@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização com Endereço</title>
+    <style>
+        /* Define um estilo básico para a página */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Define um estilo para o elemento que contém as informações de geolocalização */
+.container {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Define um estilo para os elementos de parágrafo que exibem as coordenadas e o endereço */
+p {
+    color: #333;
+    margin: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="latitude">Latitude: Carregando...</p>
+        <p id="longitude">Longitude: Carregando...</p>
+        <p id="endereco">Endereço: Carregando...</p>
+    </div>
+    <script>
+        // Obtém referências aos elementos onde deseja exibir as coordenadas e o endereço
+        var latitudePos = document.getElementById('latitude');
+        var longitudePos = document.getElementById('longitude');
+        var enderecoPos = document.getElementById('endereco');
+
+        // Função para atualizar as coordenadas com a geolocalização atual
+        function updateLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Coordenadas da posição atual
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    // Atualiza os elementos na tela com as coordenadas
+                    latitudePos.textContent = "Latitude: " + latitude;
+                    longitudePos.textContent = "Longitude: " + longitude;
+
+                    // Faz uma solicitação de geocodificação reversa ao serviço Nominatim
+                    var apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+        
+                    fetch(apiUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.display_name) {
+                                // Exibe o endereço no elemento de parágrafo
+                                enderecoPos.textContent = "Endereço: "+ data.display_name ;
+                                console.log(data);
+                            } else {
+                                enderecoPos.textContent = "Endereço não encontrado.";
+                            }
+                        })
+                        .catch(error => {
+                            enderecoPos.textContent = "Erro na geocodificação: " + error;
+                        });
+                });
+            } else {
+                latitudePos.textContent = "Geolocalização não é suportada neste navegador.";
+                longitudePos.textContent = "";
+                enderecoPos.textContent = "";
+            }
+        }
+
+        // Chama a função para atualizar as coordenadas inicialmente
+        updateLocation();
+
+        // Define um intervalo para atualizar as coordenadas e o endereço periodicamente (por exemplo, a cada 5 segundos)
+        setInterval(updateLocation, 5000); // 5000 milissegundos = 5 segundos
+    </script>
+</body>
+</html>
