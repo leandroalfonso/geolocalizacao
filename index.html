@@ -37,11 +37,15 @@ p {
         <p id="longitude">Longitude: Carregando...</p>
         <p id="endereco">Endereço: Carregando...</p>
     </div>
+    <div class="container" id="obs">
+
+    </div>
     <script>
         // Obtém referências aos elementos onde deseja exibir as coordenadas e o endereço
         var latitudePos = document.getElementById('latitude');
         var longitudePos = document.getElementById('longitude');
         var enderecoPos = document.getElementById('endereco');
+        var obs = document.getElementById('obs');
 
         // Função para atualizar as coordenadas com a geolocalização atual
         function updateLocation() {
@@ -63,8 +67,8 @@ p {
                         .then(data => {
                             if (data.display_name) {
                                 // Exibe o endereço no elemento de parágrafo
-                                enderecoPos.textContent = "Endereço: "+ data.display_name ;
-                                console.log(data);
+                                enderecoPos.textContent = "Endereço: "+ data.display_name;
+                                obs.textContent = "Obs: "+ data.address.road;
                             } else {
                                 enderecoPos.textContent = "Endereço não encontrado.";
                             }
