@@ -68,7 +68,10 @@ p {
                             if (data.display_name) {
                                 // Exibe o endereço no elemento de parágrafo
                                 enderecoPos.textContent = "Endereço: "+ data.display_name;
-                                obs.innerHTML = data.licence + "<br>" + data.timestamp + "<br>" + data.r;
+                                obs.innerHTML = `<p>Local com pouco risco de Furtos ou roubos,</p>
+                                <p>Numero de Incidentes: 12, em 1 Ano</p>
+                                
+                                `;
                             } else {
                                 enderecoPos.textContent = "Endereço não encontrado.";
                             }
