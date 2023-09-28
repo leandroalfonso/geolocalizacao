@@ -1,114 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  
-  <title>Frontend Mentor | Easybank landing page</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Registro de Furto</title>
+    <!-- Adicione os links para os estilos do Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <!--INICIO TOPO -->
+    <div class="container mt-4">
+        <h2 class="mb-4">Formulário de Registro de Furto</h2>
+        <form action="processar_formulario.php" method="post">
+            <div class="form-group">
+                <label for="furto">Você já teve alguma situação de furto ou roubo do seu veículo ou algum pertence?</label>
+                <select class="form-control" name="furto" id="furto">
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
 
-  <header class="conteudo-cima">
-    <nav class="links-cima">
-      <ul>
-        <li class="logo">
-          <a href="">
-            <img src="images/logo.svg" alt="" width="170px">
-          </a>
-        </li>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact</li>
-        <li>Blog</li>
-        <li>Carrers</li>
-        <li class="btn"> Request invite </li>
-      </ul>
-    </nav>
-  </header>
+            <div class="form-group">
+                <label for="cidade">Em qual bairro ocorreu o furto/roubo?</label>
+                <select class="form-control" name="cidade" id="cidade">
+                    <option value="cidade1">Centro</option>
+                    <option value="cidade2">Rio Maina</option>
+                    <option value="cidade3">Mina 4</option>
+                    <option value="cidade4">Santa Luzia</option>
+                    <option value="cidade5">São Luiz</option>
+                    <option value="cidade6">São Simão</option>
+                    <option value="cidade7">Jardim Esteves</option>
+                    <option value="cidade8">São Roque</option>
+                    <option value="cidade9">São Defende</option>
+                    <option value="cidade10">São João</option>
+                    <option value="cidade11">São Pedro</option>
+                    <option value="cidade12">São Sebastião</option>
+                    <option value="cidade13">São Simão</option>
 
-  <!--FIM DO TOPO-->
+                    <!-- Adicione mais opções de cidades conforme necessário -->
+                </select>
+            </div>
 
-  <!--Inicio do meio-->
-  <main class="meio">
-    <section class="area-conteudo-1">
+            <div class="form-group">
+                <label for="descricao">Descreva o ocorrido (opcional):</label>
+                <textarea class="form-control" name="descricao" id="descricao" rows="4"></textarea>
+            </div>
 
-       <div class="textos-1">
-        <h1 class="h1-meio">Next Generation <br> digital banking</h1>
-        <p>Take your financial life online. Your easybank account <br> will be a one stop shot for spending, saving, budgeting, investing and much more</p>
-        <button class="btn">Request Invite</button>
-       </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
 
-       <aside class="lado-meio"><img src="images/image-mockups.png" alt=""></aside>
-    </section>
-
-    <section class="area-conteudo-2">
-
-      <article class="textos-2">
-        <h2 class="h2-meio">Why Choose easybank</h2>
-        <p>We leverage open Banking to turn your bank account into your financial hub. <br> Control your finances like never before</p>
-      </article>
-
-      <nav class="area-cards">
-
-        <article class="card">
-          <img src="images/icon-online.svg" alt="">
-          <h2 class="h2-cards">Online banking</h2>
-          <p class="textos-3">Our modern web and mobile <br> applications allow you to keep <br> track of your finances wherever you <br> are on the world</p>
-        </article>
-        <article class="card">
-          <img src="images/icon-budgeting.svg" alt="">
-          <h2 class="h2-cards">Simple budgeting</h2>
-          <p class="textos-3">See exactly where you <br> goes each month receive <br> notifications when you're close to <br> hittings your limits</p>
-        </article>
-        <article class="card">
-          <img src="images/icon-onboarding.svg" alt="">
-          <h2 class="h2-cards"> Fast onboarding</h2>
-          <p class="textos-3">We dont do branches. open your <br> account in minutes online and start <br> taking control of your finances <br> right away</p>
-        </article>
-        <article class="card">
-          <img src="images/icon-api.svg" alt="">
-          <h2 class="h2-cards">Open API </h2>
-          <p class="textos-3"> Manage your savings,investiments, <br> pension,and much more from one <br> account. Tracking your money has <br> never been easier</p>
-        </article>
-      </nav>
-
-    </section>
-
-    <section class="area-conteudo-3">
-
-      <h1 class="h1-noticias">Latests articles</h1>
-
-      <nav class="noticias">
-        <article class="noticias-link">
-
-          <img class="img-noticias" src="images/image-currency.jpg" alt="" width="250px"> <br>
-          <span class="author">by claire Robinson</span>
-          <p class="texto-noticia">Receive money in any <br> currency with no fess</p>
-          <p>The world is getting smaller</p>
-        </article>
-
-        <article class="noticias-link">
-
-          <img class="img-noticias" src="images/image-restaurant.jpg" alt="" width="280px"> <br>
-          <span class="author">by wilson hutter</span>
-        </article>
-        <article class="noticias-link">
-          <img class="img-noticias" src="images/image-plane.jpg" alt="" width="280px">
-        </article>
-        <article class="noticias-link">
-          <img class="img-noticias" src="images/image-confetti.jpg" alt="" width="280px">
-        </article>
-      </nav>
-
-    </section>
-
-  </main>
-  
+    <!-- Adicione os scripts do Bootstrap (jQuery e Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
