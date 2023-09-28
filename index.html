@@ -6,90 +6,105 @@
     <title>Geolocalização com Endereço</title>
     <style>
         /* Define um estilo básico para a página */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    text-decoration: none;
-    list-style: none;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    color: #333;
-    font-size: 16px;
-    background-color: #f0f0f0;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            text-decoration: none;
+            list-style: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            color: #333;
+            font-size: 16px;
+            background-color: #f0f0f0;
+        }
         body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    font-family:sans-serif;
-}
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
 
-/* Define um estilo para o elemento que contém as informações de geolocalização */
-.container {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-}
-.container-obs{
-    background-color: #15d425;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    color: aliceblue;
-    font-weight: 800;
-}.container p{
-    color:#333;
-    font-size: 14px;
+        /* Define um estilo para o elemento que contém as informações de geolocalização */
+        .container {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .container-obs {
+            background-color: #15d425;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            color: aliceblue;
+            font-weight: 800;
+        }
+        .container p {
+            color: #333;
+            font-size: 14px;
+        }
+        header {
+            background-color: #79d881;
+            color: aliceblue;
+            font-weight: 800;
+            text-align: center;
+            width: 100%;
+            height: 80px;
+        }
 
-}
-header{
-    background-color: #79d881;
-    color: aliceblue;
-    font-weight: 800;
-    
-    text-align: center;
-    width: 100%;
-    height: 80px;
-}
+        /* Define um estilo para os elementos de parágrafo que exibem as coordenadas e o endereço */
+        p {
+            color: #333;
+            margin: 10px 0;
+        }
 
-/* Define um estilo para os elementos de parágrafo que exibem as coordenadas e o endereço */
-p {
-    color: #333;
-    margin: 10px 0;
-}
-
+        /* Estilo para o mapa */
+        #map {
+            height: 400px;
+        }
     </style>
+    <!-- Adicione os estilos e scripts do Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
     <header>
-        <h2>Geolocalização com Endereço</h2>    
+        <h2>Geolocalização com Endereço</h2>
     </header>
     <div class="container">
-     
         <p id="endereco">Local: Carregando...</p>
     </div>
-    <div class="container-obs" id="obs">
-
-    </div>
+    <div class="container-obs" id="obs"></div>
     <div class="container">
         <p id="latitude">Latitude: Carregando...</p>
         <p id="longitude">Longitude: Carregando...</p>
-
     </div>
+    <!-- Div para exibir o mapa -->
+    <div id="map" style="height: 200px;"></div>
     <script>
         // Obtém referências aos elementos onde deseja exibir as coordenadas e o endereço
         var latitudePos = document.getElementById('latitude');
         var longitudePos = document.getElementById('longitude');
         var enderecoPos = document.getElementById('endereco');
         var obs = document.getElementById('obs');
+
+        // Inicializa o mapa uma vez quando a página carregar
+        var map = L.map('map').setView([0, 0], 1); // Coordenadas iniciais
+
+        // Adicione um mapa de fundo (tile layer) do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Crie um marcador para a posição atual, mas não o adicione ao mapa ainda
+        var marker = L.marker([0, 0]);
 
         // Função para atualizar as coordenadas com a geolocalização atual
         function updateLocation() {
@@ -103,19 +118,20 @@ p {
                     latitudePos.textContent = "Latitude: " + latitude;
                     longitudePos.textContent = "Longitude: " + longitude;
 
+                    // Atualiza as coordenadas do marcador
+                    marker.setLatLng([latitude, longitude]);
+
                     // Faz uma solicitação de geocodificação reversa ao serviço Nominatim
-                    var apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-        
+                    var apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+
                     fetch(apiUrl)
                         .then(response => response.json())
                         .then(data => {
                             if (data.display_name) {
                                 // Exibe o endereço no elemento de parágrafo
-                                enderecoPos.textContent = "Endereço: "+ data.display_name;
+                                enderecoPos.textContent = "Endereço: " + data.display_name;
                                 obs.innerHTML = `<p>Local com pouco risco de Furtos ou roubos,</p>
-                                <p>Numero de Incidentes: 12, em 1 Ano</p>
-                                
-                                `;
+                                <p>Numero de Incidentes: 12, em 1 Ano</p>`;
                             } else {
                                 enderecoPos.textContent = "Endereço não encontrado.";
                             }
@@ -133,6 +149,9 @@ p {
 
         // Chama a função para atualizar as coordenadas inicialmente
         updateLocation();
+
+        // Adicione o marcador ao mapa
+        marker.addTo(map);
 
         // Define um intervalo para atualizar as coordenadas e o endereço periodicamente (por exemplo, a cada 5 segundos)
         setInterval(updateLocation, 5000); // 5000 milissegundos = 5 segundos
