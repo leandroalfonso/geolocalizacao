@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h2 class="mb-4">Olá, vc precisa responder esse questionário antes de prosseguir ok?</h2>
-        <form>
+        <h2 class="mb-4">Olá, você precisa responder esse questionário antes de prosseguir, ok?</h2>
+        <form action="index.html" method="post" onsubmit="enviar()">
             <div class="form-group">
                 <label for="furto">Você já teve alguma situação de furto ou roubo do seu veículo ou algum pertence?</label>
                 <select class="form-control" name="furto" id="furto">
@@ -26,16 +26,6 @@
                     <option value="cidade2">Rio Maina</option>
                     <option value="cidade3">Mina 4</option>
                     <option value="cidade4">Santa Luzia</option>
-                    <option value="cidade5">São Luiz</option>
-                    <option value="cidade6">São Simão</option>
-                    <option value="cidade7">Jardim Esteves</option>
-                    <option value="cidade8">São Roque</option>
-                    <option value="cidade9">São Defende</option>
-                    <option value="cidade10">São João</option>
-                    <option value="cidade11">São Pedro</option>
-                    <option value="cidade12">São Sebastião</option>
-                    <option value="cidade13">São Simão</option>
-
                     <!-- Adicione mais opções de cidades conforme necessário -->
                 </select>
             </div>
@@ -45,15 +35,14 @@
                 <textarea class="form-control" name="descricao" id="descricao" rows="4"></textarea>
             </div>
 
-            <button onclick="enviar()"  class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
-<script>
-    function enviar(){
-        alert("Obrigado por responder o questionário, agora você pode prosseguir!");
-        window.location.href = "index.html";
-    }
-</script>
+    <script>
+        function enviar() {
+            alert("Obrigado por responder o questionário, agora você pode prosseguir!");
+        }
+    </script>
     <!-- Adicione os scripts do Bootstrap (jQuery e Popper.js) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
