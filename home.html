@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-4">
         <h2 class="mb-4">Olá, você precisa responder esse questionário antes de prosseguir, ok?</h2>
-        <form action="index.html" method="post" onsubmit="enviar()">
+        <form>
             <div class="form-group">
                 <label for="furto">Você já teve alguma situação de furto ou roubo do seu veículo ou algum pertence?</label>
                 <select class="form-control" name="furto" id="furto">
@@ -35,12 +35,13 @@
                 <textarea class="form-control" name="descricao" id="descricao" rows="4"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button onclick="redirecionarParaIndex()" class="btn btn-primary">Enviar</button>
         </form>
     </div>
     <script>
-        function enviar() {
-            alert("Obrigado por responder o questionário, agora você pode prosseguir!");
+        function redirecionarParaIndex() {
+            alert("Obrigado por responder o questionário, agora você será redirecionado para a página inicial.");
+            window.location.href = "https://geolocapp.netlify.app/";
         }
     </script>
     <!-- Adicione os scripts do Bootstrap (jQuery e Popper.js) -->
